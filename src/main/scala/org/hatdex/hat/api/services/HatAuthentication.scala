@@ -176,14 +176,19 @@ trait HatAuthentication {
   }
 
   @Deprecated
-  def legacyHatClaimTrigger(email: String, applicationId: String, lang: String = "en")(implicit ec: ExecutionContext): Future[String] = {
+  def legacyHatClaimTrigger(
+    email: String,
+    applicationId: String,
+    redirectUri: String,
+    lang: String = "en"
+    )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws.url(s"$schema$hatAddress/control/v2/auth/claim")
       .withVirtualHost(host)
       .withQueryStringParameters("lang" -> lang)
       .withHttpHeaders("Accept" -> "application/json")
 
     logger.debug(s"Trigger HAT claim process on $hatAddress")
-    val eventualResponse = request.post(Json.obj("email" -> email, "applicationId" -> applicationId))
+    val eventualResponse = request.post(Json.obj("email" -> email, "applicationId" -> applicationId, "redirectUri" -> redirectUri))
 
     eventualResponse.flatMap { response =>
       response.status match {
