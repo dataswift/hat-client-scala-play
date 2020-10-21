@@ -11,7 +11,7 @@ package org.hatdex.hat.api.services
 
 import org.hatdex.hat.api.models.EndpointData
 import org.hatdex.hat.api.services.Errors.UnauthorizedActionException
-import play.shaded.ahc.org.asynchttpclient.exception.RemotelyClosedException
+//import play.shaded.ahc.org.asynchttpclient.exception.RemotelyClosedException
 import org.hatdex.hat.api.services.MockHatServer.withHatClient
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
@@ -19,7 +19,7 @@ import org.specs2.specification.Scope
 import play.api.Logger
 import play.api.libs.json.{ JsArray, Json }
 import play.api.mvc.Results
-import java.net.ConnectException
+//import java.net.ConnectException
 
 import scala.concurrent.{ Await }
 import scala.concurrent.duration._
@@ -41,28 +41,15 @@ class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDat
       }
     }
 
-    "get data for permitted endpoints" in {
+    "get data for permitted endpoints and disallows for unpermitted endpoints" in {
       withHatClient { client =>
-        val eventuallyRecord = client.getData(validAccessToken, "rumpel", "locations")
-        val record           = Await.result(eventuallyRecord, 20.seconds)
-        record.length must beEqualTo(data.length)
-      }
-    }
-
-    "throw an exception for unauthorized endpoints" in {
-      withHatClient { client =>
+        val eventuallyOk = client.getData(validAccessToken, "rumpel", "locations")
+        val recordOk     = Await.result(eventuallyOk, 20.seconds)
+        recordOk.length must beEqualTo(data.length)
         client.getData(validAccessToken, "private", "locations") map { res =>
           res must beEqualTo("")
         } recover {
           case uae: UnauthorizedActionException => uae must beAnInstanceOf[UnauthorizedActionException]
-          case rce: RemotelyClosedException =>
-            logger.info(s"We expected an UnauthorizedActionException, but received a RemotelyClosedException")
-            println(s"We expected an UnauthorizedActionException, but received a RemotelyClosedException")
-            ok
-          case cre: ConnectException =>
-            logger.info(s"We expected an UnauthorizedActionException, but received a ConnectException")
-            println(s"We expected an UnauthorizedActionException, but received a ConnectException")
-            ok
           case e =>
             logger.info(s"We expected an UnauthorizedActionException, but received a ${e}")
             println(s"We expected an UnauthorizedActionException, but received a ${e}")
@@ -71,7 +58,6 @@ class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDat
       }
     }
   }
-
 }
 
 trait RichDataSpecContext extends Scope {
