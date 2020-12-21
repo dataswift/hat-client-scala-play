@@ -1,6 +1,6 @@
 package org.hatdex.hat.api.utils
 
-import org.hatdex.hat.api.models.applications.ApplicationKind
+import io.dataswift.models.hat.applications.ApplicationKind
 import play.api.mvc.QueryStringBindable
 
 object QueryBindables extends Bindables {}

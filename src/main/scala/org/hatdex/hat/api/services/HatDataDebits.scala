@@ -1,6 +1,6 @@
 package org.hatdex.hat.api.services
 
-import org.hatdex.hat.api.models._
+import io.dataswift.models.hat._
 import org.hatdex.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
 import play.api.Logger
 import play.api.http.Status._
@@ -17,7 +17,7 @@ trait HatDataDebits {
   protected val apiVersion: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 
-  import org.hatdex.hat.api.json.RichDataJsonFormats._
+  import io.dataswift.models.hat.json.RichDataJsonFormats._
 
   def getDataDebit(
       access_token: String,

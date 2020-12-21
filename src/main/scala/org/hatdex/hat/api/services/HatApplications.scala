@@ -9,8 +9,8 @@
 
 package org.hatdex.hat.api.services
 
-import org.hatdex.hat.api.models.HatService
-import org.hatdex.hat.api.models.applications.HatApplication
+import io.dataswift.models.hat.HatService
+import io.dataswift.models.hat.applications.HatApplication
 import org.hatdex.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
 import play.api.Logger
 import play.api.http.Status._
@@ -27,8 +27,8 @@ trait HatApplications {
   protected val apiVersion: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 
-  import org.hatdex.hat.api.json.HatJsonFormats._
-  import org.hatdex.hat.api.json.ApplicationJsonProtocol._
+  import io.dataswift.models.hat.json.HatJsonFormats._
+  import io.dataswift.models.hat.json.ApplicationJsonProtocol._
 
   @Deprecated
   def getApplications(access_token: String)(implicit ec: ExecutionContext): Future[Seq[HatService]] = {

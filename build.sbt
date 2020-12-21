@@ -1,5 +1,7 @@
 import Dependencies._
 
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.4.4"
+
 libraryDependencies ++= Seq(
   Library.Play.ws,
   Library.Play.test,
@@ -9,17 +11,15 @@ libraryDependencies ++= Seq(
   Library.Specs2.mock,
   Library.Specs2.core,
   Library.Utils.jodaTime,
-  Library.Play.playAkkaHttpServer
+  Library.Play.playAkkaHttpServer,
+  Library.DataswiftModels.hat,
+  Library.DataswiftModels.hatPlay,
 )
-
+publishMavenStyle := true
 publishTo := {
-  val prefix               = if (isSnapshot.value) "snapshots" else "releases"
-  val s3BucketFriendlyName = "HAT Library Artifacts"
-  val s3BucketName         = "library-artifacts-"
-  val s3DomainSuffix       = ".hubofallthings.com"
+  val prefix = if (isSnapshot.value) "snapshots" else "releases"
   Some(
-    s3resolver
-      .value(List(s3BucketName, prefix).mkString(""), s3(s3BucketName + prefix + s3DomainSuffix)) withMavenPatterns
+    "Models" + prefix at "s3://library-artifacts-" + prefix + ".hubofallthings.com"
   )
 }
 

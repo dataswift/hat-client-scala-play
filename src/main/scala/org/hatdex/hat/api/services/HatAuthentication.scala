@@ -11,8 +11,8 @@ package org.hatdex.hat.api.services
 
 import java.util.UUID
 
-import org.hatdex.hat.api.json.HatJsonFormats
-import org.hatdex.hat.api.models.{PdaEmailVerificationRequest, User}
+import io.dataswift.models.hat.json.HatJsonFormats
+import io.dataswift.models.hat.{PdaEmailVerificationRequest, User}
 import org.hatdex.hat.api.services.Errors.ApiException
 import play.api.Logger
 import play.api.http.Status._
@@ -31,7 +31,7 @@ trait HatAuthentication {
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 
   import HatJsonFormats._
-  import org.hatdex.hat.api.models.ApiAuthenticationFormats._
+  import io.dataswift.models.hat.json.ApiAuthenticationFormats._
 
   def retrievePublicKey()(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws

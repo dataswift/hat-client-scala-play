@@ -23,6 +23,14 @@ object Dependencies {
   )
 
   object Library {
+
+    object DataswiftModels {
+      private val version =
+        "0.2.0-SNAPSHOT"
+      val hat     = "io.dataswift" %% "hat"      % version
+      val hatPlay = "io.dataswift" %% "hat-play" % version
+    }
+
     object Play {
       private val version    = play.core.PlayVersion.current
       val ws                 = "com.typesafe.play" %% "play-ahc-ws"           % version

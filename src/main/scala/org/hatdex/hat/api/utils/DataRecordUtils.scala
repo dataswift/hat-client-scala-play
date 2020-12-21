@@ -9,7 +9,7 @@
 
 package org.hatdex.hat.api.utils
 
-import org.hatdex.hat.api.models.{ ApiDataRecord, ApiDataTable }
+import io.dataswift.models.hat.{ ApiDataRecord, ApiDataTable }
 import org.joda.time.LocalDateTime
 
 trait DataRecordUtils {

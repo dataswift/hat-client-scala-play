@@ -11,7 +11,7 @@ package org.hatdex.hat.api.services
 
 import java.util.UUID
 
-import org.hatdex.hat.api.models.{ EndpointData, ErrorMessage }
+import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
 import org.hatdex.hat.api.services.Errors.{ ApiException, DuplicateDataException, UnauthorizedActionException }
 import play.api.Logger
 import play.api.http.Status._
@@ -28,7 +28,7 @@ trait HatRichData {
   protected val apiVersion: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 
-  import org.hatdex.hat.api.json.RichDataJsonFormats._
+  import io.dataswift.models.hat.json.RichDataJsonFormats._
 
   def saveData(
       access_token: String,

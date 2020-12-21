@@ -12,7 +12,7 @@ package org.hatdex.hat.api.services
 import java.util.UUID
 
 import akka.util.ByteString
-import org.hatdex.hat.api.models.{ EndpointData, ErrorMessage }
+import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
 import play.api.Logger
 import play.api.http.{ DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity }
 import play.api.libs.json._
@@ -25,7 +25,7 @@ import scala.io.Source._
 import play.api.http.DefaultFileMimeTypes
 
 object MockHatServer {
-  import org.hatdex.hat.api.json.RichDataJsonFormats._
+  import io.dataswift.models.hat.json.RichDataJsonFormats._
 
   implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
