@@ -43,7 +43,7 @@ object BuildSettings extends AutoPlugin {
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
       organization := "org.hatdex",
-      version := "3.0.0-SNAPSHOT",
+      version := "3.0.0",
       resolvers ++= Dependencies.resolvers,
       scalaVersion := Dependencies.Versions.scalaVersion,
       crossScalaVersions := Dependencies.Versions.crossScala,
