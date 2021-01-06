@@ -9,7 +9,7 @@
 
 package org.hatdex.hat.api.services
 
-import org.hatdex.hat.api.models.EndpointData
+import io.dataswift.models.hat.EndpointData
 import org.hatdex.hat.api.services.Errors.UnauthorizedActionException
 //import play.shaded.ahc.org.asynchttpclient.exception.RemotelyClosedException
 import org.hatdex.hat.api.services.MockHatServer.withHatClient
@@ -66,7 +66,7 @@ class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDat
 }
 
 trait RichDataSpecContext extends Scope {
-  import org.hatdex.hat.api.json.RichDataJsonFormats._
+  import io.dataswift.models.hat.json.RichDataJsonFormats._
   val validAccessToken = fromInputStream(
     Results.getClass.getClassLoader.getResourceAsStream("hat-test-messages/validAccessToken")
   ).mkString
