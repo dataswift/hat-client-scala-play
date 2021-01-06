@@ -17,6 +17,8 @@ object Dependencies {
   }
 
   val resolvers = Seq(
+    "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
+    "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
     "Atlassian Releases" at "https://maven.atlassian.com/public/",
     "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
     "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
