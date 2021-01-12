@@ -1,9 +1,12 @@
-name: Deploy Snapshot
+name: Deploy
 
 on: 
   push:
     branches:
       - main
+  release:
+    types:
+      - released
 
 jobs:
   deploy:
@@ -13,9 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Publish
-        run: sbt 'set ThisBuild / version := System.getenv("APP_VERSION")' clean +publish 
+        run: sbt clean +publish
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ARTIFACTS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ARTIFACTS_SECRET_ACCESS_KEY }}
