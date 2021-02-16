@@ -28,9 +28,9 @@ object Dependencies {
 
     object DataswiftModels {
       private val version =
-        "1.0.0"
-      val hat     = "io.dataswift.models" %% "hat"      % version
-      val hatPlay = "io.dataswift.models" %% "hat-play" % version
+        "2.0.1"
+      val hat     = "io.dataswift" %% "hat"      % version
+      val hatPlay = "io.dataswift" %% "hat-play" % version
     }
 
     object Play {
