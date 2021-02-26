@@ -18,6 +18,7 @@ object Dependencies {
     val testCommon = "0.2.3"
     val jodaTime = "2.10"
     val modelsVersion = "2.0.4"
+    val playJson = "2.9.1"
   }
 
   val resolvers = Seq(
@@ -29,8 +30,8 @@ object Dependencies {
     val hatPlayModels = "io.dataswift" %% "hat-play" % Versions.modelsVersion
     val playWs = "com.typesafe.play" %% "play-ahc-ws"           % Versions.playVersion
     val playTest = "com.typesafe.play" %% "play-test" % Versions.playVersion % "compile" // Used by the MockHatServer
-    val playJson = "com.typesafe.play" %% "play-json" % "2.9.1"
-    val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+    val playJson = "com.typesafe.play" %% "play-json" % Versions.playJson
+    val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % Versions.playJson
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
     val jodaTime = "joda-time" % "joda-time" % Versions.jodaTime
 
