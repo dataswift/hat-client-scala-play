@@ -3,17 +3,13 @@ import Dependencies._
 ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.4.4"
 
 libraryDependencies ++= Seq(
-  Library.Play.ws,
-  Library.Play.test,
-  Library.Play.json,
-  Library.Play.jsonJoda,
-  Library.Specs2.matcherExtra,
-  Library.Specs2.mock,
-  Library.Specs2.core,
-  Library.Utils.jodaTime,
-  Library.Play.playAkkaHttpServer,
-  Library.DataswiftModels.hat,
-  Library.DataswiftModels.hatPlay,
+  Library.playWs,
+  Library.playTest,
+  Library.playJson,
+  Library.playJsonJoda,
+  Library.jodaTime,
+  Library.hatPlayModels,
+  Library.testCommon % Test
 )
 publishMavenStyle := true
 publishTo := {

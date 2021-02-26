@@ -12,45 +12,27 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala   = Seq("2.13.3", "2.12.12")
+    val crossScala = Seq("2.13.3", "2.12.12")
     val scalaVersion = crossScala.head
+    val playVersion = play.core.PlayVersion.current
+    val testCommon = "0.2.3"
+    val jodaTime = "2.10"
+    val modelsVersion = "2.0.4"
   }
 
   val resolvers = Seq(
     "HAT Library Artifacts Snapshots" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-snapshots.hubofallthings.com",
     "HAT Library Artifacts Releases" at "https://s3-eu-west-1.amazonaws.com/library-artifacts-releases.hubofallthings.com",
-    "Atlassian Releases" at "https://maven.atlassian.com/public/",
-    "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases",
-    "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
   )
 
   object Library {
-
-    object DataswiftModels {
-      private val version =
-        "2.0.1"
-      val hat     = "io.dataswift" %% "hat"      % version
-      val hatPlay = "io.dataswift" %% "hat-play" % version
-    }
-
-    object Play {
-      private val version    = play.core.PlayVersion.current
-      val ws                 = "com.typesafe.play" %% "play-ahc-ws"           % version
-      val test               = "com.typesafe.play" %% "play-test"             % version % "compile" // Used by the MockHatServer
-      val json               = "com.typesafe.play" %% "play-json"             % "2.9.1"
-      val jsonJoda           = "com.typesafe.play" %% "play-json-joda"        % "2.9.1"
-      val playAkkaHttpServer = "com.typesafe.play" %% "play-akka-http-server" % version % Test
-    }
-
-    object Specs2 {
-      private val version = "4.10.3"
-      val core            = "org.specs2" %% "specs2-core"          % version % "test"
-      val matcherExtra    = "org.specs2" %% "specs2-matcher-extra" % version % "test"
-      val mock            = "org.specs2" %% "specs2-mock"          % version % "test"
-    }
-
-    object Utils {
-      val jodaTime = "joda-time" % "joda-time" % "2.10"
-    }
+    val hatPlayModels = "io.dataswift" %% "hat-play" % Versions.modelsVersion
+    val playWs = "com.typesafe.play" %% "play-ahc-ws"           % Versions.playVersion
+    val playTest = "com.typesafe.play" %% "play-test" % Versions.playVersion % "compile" // Used by the MockHatServer
+    val playJson = "com.typesafe.play" %% "play-json" % "2.9.1"
+    val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
+    val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
+    val jodaTime = "joda-time" % "joda-time" % Versions.jodaTime
   }
+
 }
