@@ -9,16 +9,16 @@
 
 package org.hatdex.hat.api.services
 
+import scala.concurrent.duration._
+import scala.concurrent.{ Await, Future }
+import scala.io.Source._
+
 import org.hatdex.hat.api.services.MockHatServer.withHatClient
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.execute.Result
 import org.specs2.matcher.MatchResult
 import org.specs2.mutable.Specification
 import play.api.mvc.Results
-
-import scala.concurrent.{ Await, Future }
-import scala.concurrent.duration._
-import scala.io.Source._
 
 class HatAuthenticationSpec(implicit ee: ExecutionEnv) extends Specification {
 
