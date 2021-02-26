@@ -9,9 +9,10 @@ libraryDependencies ++= Seq(
   Library.jodaTime,
   Library.hatPlayModels,
   Library.Specs2.matcherExtra % Test,
-  Library.Specs2.mock         % Test,
-  Library.Specs2.core         % Test,
-  Library.playTest
+  Library.Specs2.mock % Test,
+  Library.Specs2.core % Test,
+  Library.playAkkaHttpServer % Test,
+  Library.playTest % "compile" // Used by the MockHatServer,
 )
 publishMavenStyle := true
 publishTo := {
