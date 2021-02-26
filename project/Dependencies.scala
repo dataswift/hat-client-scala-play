@@ -29,9 +29,10 @@ object Dependencies {
   object Library {
     val hatPlayModels = "io.dataswift" %% "hat-play" % Versions.modelsVersion
     val playWs = "com.typesafe.play" %% "play-ahc-ws"           % Versions.playVersion
-    val playTest = "com.typesafe.play" %% "play-test" % Versions.playVersion % "compile" // Used by the MockHatServer
+    val playTest = "com.typesafe.play" %% "play-test" % Versions.playVersion
     val playJson = "com.typesafe.play" %% "play-json" % Versions.playJson
     val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % Versions.playJson
+    val playAkkaHttpServer = "com.typesafe.play" %% "play-akka-http-server" % Versions.playVersion
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
     val jodaTime = "joda-time" % "joda-time" % Versions.jodaTime
 

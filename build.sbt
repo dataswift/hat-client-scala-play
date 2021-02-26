@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   Library.Specs2.matcherExtra % Test,
   Library.Specs2.mock % Test,
   Library.Specs2.core % Test,
-  Library.playTest,
+  Library.playAkkaHttpServer % Test,
+  Library.playTest % "compile" // Used by the MockHatServer,
 )
 publishMavenStyle := true
 publishTo := {
