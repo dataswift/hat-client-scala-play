@@ -25,6 +25,7 @@ import scala.concurrent.{ Await }
 import scala.concurrent.duration._
 import scala.io.Source._
 
+// \todo move these tests to using basespec and get them working
 class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDataSpecContext {
   val logger = Logger(this.getClass)
 

@@ -33,6 +33,13 @@ object Dependencies {
     val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % "2.9.1"
     val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
     val jodaTime = "joda-time" % "joda-time" % Versions.jodaTime
+
+    object Specs2 {
+      private val version = "4.10.3"
+      val core            = "org.specs2" %% "specs2-core"          % version
+      val matcherExtra    = "org.specs2" %% "specs2-matcher-extra" % version
+      val mock            = "org.specs2" %% "specs2-mock"          % version
+    }
   }
 
 }
