@@ -9,9 +9,12 @@
 
 package org.hatdex.hat.api.services
 
+import scala.concurrent.{ Await }
+import scala.concurrent.duration._
+import scala.io.Source._
+
 import io.dataswift.models.hat.EndpointData
 import org.hatdex.hat.api.services.Errors.UnauthorizedActionException
-//import play.shaded.ahc.org.asynchttpclient.exception.RemotelyClosedException
 import org.hatdex.hat.api.services.MockHatServer.withHatClient
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
@@ -19,15 +22,11 @@ import org.specs2.specification.Scope
 import play.api.Logger
 import play.api.libs.json.{ JsArray, Json }
 import play.api.mvc.Results
-//import java.net.ConnectException
-
-import scala.concurrent.{ Await }
-import scala.concurrent.duration._
-import scala.io.Source._
+import play.api.libs.json.JsValue
 
 // \todo move these tests to using basespec and get them working
 class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDataSpecContext {
-  val logger = Logger(this.getClass)
+  val logger: Logger = Logger(this.getClass)
 
   sequential
 
@@ -68,12 +67,12 @@ class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDat
 
 trait RichDataSpecContext extends Scope {
   import io.dataswift.models.hat.json.RichDataJsonFormats._
-  val validAccessToken = fromInputStream(
+  val validAccessToken: String = fromInputStream(
     Results.getClass.getClassLoader.getResourceAsStream("hat-test-messages/validAccessToken")
   ).mkString
-  val dataRecords =
+  val dataRecords: JsValue =
     Json.parse(Results.getClass.getClassLoader.getResourceAsStream("hat-test-messages/flexiRecordsSaved.json"))
 
-  val data     = dataRecords.as[Seq[EndpointData]]
-  val jsonData = JsArray(data.map(_.data))
+  val data: Seq[EndpointData] = dataRecords.as[Seq[EndpointData]]
+  val jsonData: JsArray       = JsArray(data.map(_.data))
 }

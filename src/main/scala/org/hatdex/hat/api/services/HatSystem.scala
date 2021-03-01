@@ -9,11 +9,11 @@
 
 package org.hatdex.hat.api.services
 
+import scala.concurrent.{ ExecutionContext, Future }
+
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.ws._
-
-import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatSystem {
   protected val logger: Logger

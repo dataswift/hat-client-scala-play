@@ -11,18 +11,17 @@ package org.hatdex.hat.api.services
 
 import java.util.UUID
 
+import scala.io.Source._
+
 import akka.util.ByteString
 import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
 import play.api.Logger
-import play.api.http.{ DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity }
+import play.api.http.{ DefaultFileMimeTypes, DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity }
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import play.api.mvc._
 import play.api.routing.sird._
 import play.core.server.Server
-
-import scala.io.Source._
-import play.api.http.DefaultFileMimeTypes
 
 object MockHatServer {
   import io.dataswift.models.hat.json.RichDataJsonFormats._
