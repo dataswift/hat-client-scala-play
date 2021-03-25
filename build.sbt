@@ -1,6 +1,6 @@
 import Dependencies._
 
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.4.4"
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
 
 libraryDependencies ++= Seq(
   Library.playWs,
@@ -8,11 +8,11 @@ libraryDependencies ++= Seq(
   Library.playJsonJoda,
   Library.jodaTime,
   Library.hatPlayModels,
+  Library.playServer,
   Library.Specs2.matcherExtra % Test,
-  Library.Specs2.mock % Test,
-  Library.Specs2.core % Test,
-  Library.playAkkaHttpServer % Test,
-  Library.playTest % "compile" // Used by the MockHatServer,
+  Library.Specs2.mock         % Test,
+  Library.Specs2.core         % Test,
+  Library.playAkkaHttpServer  % Test
 )
 publishMavenStyle := true
 publishTo := {

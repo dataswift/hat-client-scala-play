@@ -12,13 +12,13 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val crossScala    = Seq("2.13.3", "2.12.12")
+    val crossScala    = Seq("2.13.5", "2.12.13")
     val scalaVersion  = crossScala.head
     val playVersion   = play.core.PlayVersion.current
     val testCommon    = "0.2.3"
-    val jodaTime      = "2.10"
-    val modelsVersion = "2.0.4"
-    val playJson = "2.9.1"
+    val jodaTime      = "2.10.10"
+    val modelsVersion = "2.2.0"
+    val playJson      = "2.9.1"
   }
 
   val resolvers = Seq(
@@ -27,14 +27,14 @@ object Dependencies {
   )
 
   object Library {
-    val hatPlayModels = "io.dataswift" %% "hat-play" % Versions.modelsVersion
-    val playWs = "com.typesafe.play" %% "play-ahc-ws"           % Versions.playVersion
-    val playTest = "com.typesafe.play" %% "play-test" % Versions.playVersion
-    val playJson = "com.typesafe.play" %% "play-json" % Versions.playJson
-    val playJsonJoda = "com.typesafe.play" %% "play-json-joda" % Versions.playJson
+    val hatPlayModels      = "io.dataswift"      %% "hat-play"              % Versions.modelsVersion
+    val playWs             = "com.typesafe.play" %% "play-ahc-ws"           % Versions.playVersion
+    val playServer         = "com.typesafe.play" %% "play-server"           % Versions.playVersion
+    val playJson           = "com.typesafe.play" %% "play-json"             % Versions.playJson
+    val playJsonJoda       = "com.typesafe.play" %% "play-json-joda"        % Versions.playJson
     val playAkkaHttpServer = "com.typesafe.play" %% "play-akka-http-server" % Versions.playVersion
-    val testCommon = "io.dataswift" %% "test-common" % Versions.testCommon
-    val jodaTime = "joda-time" % "joda-time" % Versions.jodaTime
+    val testCommon         = "io.dataswift"      %% "test-common"           % Versions.testCommon
+    val jodaTime           = "joda-time"          % "joda-time"             % Versions.jodaTime
 
     object Specs2 {
       private val version = "4.10.3"
