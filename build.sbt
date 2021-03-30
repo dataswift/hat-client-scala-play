@@ -1,7 +1,5 @@
 import Dependencies._
 
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
-
 libraryDependencies ++= Seq(
   Library.playWs,
   Library.playJson,
@@ -24,8 +22,10 @@ publishTo := {
 
 inThisBuild(
   List(
+    scalaVersion := "2.13.5",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
-    scalafixScalaBinaryVersion := "2.13"
+    scalafixScalaBinaryVersion := "2.13",
+    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0"
   )
 )

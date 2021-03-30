@@ -44,8 +44,6 @@ object BuildSettings extends AutoPlugin {
     Seq(
       organization := "org.hatdex",
       resolvers ++= Dependencies.resolvers,
-      scalaVersion := Dependencies.Versions.scalaVersion,
-      crossScalaVersions := Dependencies.Versions.crossScala,
       name := "HAT Client Scala Play",
       semanticdbEnabled := true,
       description := "HAT HTTP API wrapper in Scala",
