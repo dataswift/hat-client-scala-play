@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Publish
-        run: sbt clean +publish
+        run: sbt clean publish
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ARTIFACTS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ARTIFACTS_SECRET_ACCESS_KEY }}
