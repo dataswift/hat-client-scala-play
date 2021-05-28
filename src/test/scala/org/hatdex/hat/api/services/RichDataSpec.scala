@@ -9,10 +9,6 @@
 
 package org.hatdex.hat.api.services
 
-import scala.concurrent.{ Await }
-import scala.concurrent.duration._
-import scala.io.Source._
-
 import io.dataswift.models.hat.EndpointData
 import org.hatdex.hat.api.services.Errors.UnauthorizedActionException
 import org.hatdex.hat.api.services.MockHatServer.withHatClient
@@ -20,9 +16,12 @@ import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
 import play.api.Logger
-import play.api.libs.json.{ JsArray, Json }
+import play.api.libs.json.{ JsArray, JsValue, Json }
 import play.api.mvc.Results
-import play.api.libs.json.JsValue
+
+import scala.concurrent.{ Await }
+import scala.concurrent.duration._
+import scala.io.Source._
 
 // \todo move these tests to using basespec and get them working
 class RichDataSpec(implicit ee: ExecutionEnv) extends Specification with RichDataSpecContext {

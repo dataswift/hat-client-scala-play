@@ -1,16 +1,15 @@
 import Dependencies._
+import play.sbt.PlayImport
 
 libraryDependencies ++= Seq(
-  Library.playWs,
-  Library.playJson,
-  Library.playJsonJoda,
-  Library.jodaTime,
-  Library.hatPlayModels,
-  Library.playServer,
+  PlayImport.akkaHttpServer,
+  PlayImport.ws,
+  Lib.PlayJson,
+  Lib.PlayJsonJoda,
+  Library.HatPlay,
   Library.Specs2.matcherExtra % Test,
   Library.Specs2.mock         % Test,
-  Library.Specs2.core         % Test,
-  Library.playAkkaHttpServer  % Test
+  Library.Specs2.core         % Test
 )
 publishMavenStyle := true
 publishTo := {

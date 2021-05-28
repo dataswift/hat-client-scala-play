@@ -1,13 +1,13 @@
 package org.hatdex.hat.api.services
 
-import scala.concurrent.{ ExecutionContext, Future }
-
 import io.dataswift.models.hat._
 import org.hatdex.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
 import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
+
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatDataDebits {
   protected val logger: Logger
