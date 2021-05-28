@@ -9,10 +9,6 @@
 
 package org.hatdex.hat.api.services
 
-import java.util.UUID
-
-import scala.concurrent.{ ExecutionContext, Future }
-
 import io.dataswift.models.hat.json.HatJsonFormats
 import io.dataswift.models.hat.{ PdaEmailVerificationRequest, User }
 import org.hatdex.hat.api.services.Errors.ApiException
@@ -21,6 +17,9 @@ import play.api.http.Status._
 import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws._
+
+import java.util.UUID
+import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatAuthentication {
   protected val logger: Logger

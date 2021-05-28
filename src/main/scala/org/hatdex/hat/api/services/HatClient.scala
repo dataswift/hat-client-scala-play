@@ -9,10 +9,10 @@
 
 package org.hatdex.hat.api.services
 
-import javax.inject.Inject
-
 import play.api.Logging
 import play.api.libs.ws.WSClient
+
+import javax.inject.Inject
 
 class HatClient(
     val ws: WSClient,

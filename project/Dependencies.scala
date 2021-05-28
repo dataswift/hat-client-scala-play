@@ -11,12 +11,8 @@ import sbt._
 
 object Dependencies {
 
-  object Version {
-    val Play         = play.core.PlayVersion.current
-    val JodaTime     = "2.10.10"
-    val PlayJson     = "2.9.1"
-    val DsTestCommon = "0.2.3"
-    val DsBackend    = "2.2.1"
+  private object Version {
+    val DsBackend = "2.4.0"
   }
 
   val resolvers = Seq(
@@ -24,14 +20,7 @@ object Dependencies {
   )
 
   object Library {
-    val hatPlayModels      = "io.dataswift"      %% "hat-play"              % Version.DsBackend
-    val playWs             = "com.typesafe.play" %% "play-ahc-ws"           % Version.Play
-    val playServer         = "com.typesafe.play" %% "play-server"           % Version.Play
-    val playJson           = "com.typesafe.play" %% "play-json"             % Version.PlayJson
-    val playJsonJoda       = "com.typesafe.play" %% "play-json-joda"        % Version.PlayJson
-    val playAkkaHttpServer = "com.typesafe.play" %% "play-akka-http-server" % Version.Play
-    val testCommon         = "io.dataswift"      %% "test-common"           % Version.DsTestCommon
-    val jodaTime           = "joda-time"          % "joda-time"             % Version.JodaTime
+    val HatPlay = "io.dataswift" %% "hat-play" % Version.DsBackend
 
     object Specs2 {
       private val version = "4.10.3"
