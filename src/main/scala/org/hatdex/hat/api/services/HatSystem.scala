@@ -18,7 +18,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait HatSystem {
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val hatAddress: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 
@@ -26,7 +25,7 @@ trait HatSystem {
     logger.debug(s"Update HAT database")
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/system/update")
+      .url(s"$hatAddress/system/update")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -50,7 +49,7 @@ trait HatSystem {
     logger.debug(s"Destroying HAT Cache")
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/v2.6/system/destroy-cache")
+      .url(s"$hatAddress/api/v2.6/system/destroy-cache")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

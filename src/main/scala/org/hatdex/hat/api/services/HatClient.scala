@@ -17,7 +17,6 @@ import javax.inject.Inject
 class HatClient(
     val ws: WSClient,
     val hatAddress: String,
-    override val schema: String,
     override val apiVersion: String)
     extends HatAuthentication
     with HatDataDebits
@@ -27,6 +26,6 @@ class HatClient(
     with Logging {
   @Inject def this(
       ws: WSClient,
-      hatAddress: String) = this(ws, hatAddress, "https://", "v2.6")
+      hatAddress: String) = this(ws, hatAddress, "v2.6")
   override val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 }
