@@ -22,7 +22,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait HatRichData {
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val hatAddress: String
   protected val apiVersion: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
@@ -38,7 +37,7 @@ trait HatRichData {
     )(implicit ec: ExecutionContext): Future[Seq[EndpointData]] = {
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
+      .url(s"$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters("skipErrors" -> skipErrors.toString)
@@ -79,7 +78,7 @@ trait HatRichData {
       data: Seq[EndpointData]
     )(implicit ec: ExecutionContext): Future[Seq[EndpointData]] = {
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data-batch")
+      .url(s"$hatAddress/api/$apiVersion/data-batch")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -130,7 +129,7 @@ trait HatRichData {
     ).flatten
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
+      .url(s"$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(queryParameter: _*)

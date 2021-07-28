@@ -12,7 +12,6 @@ import scala.concurrent.{ ExecutionContext, Future }
 trait HatDataDebits {
   protected val logger: Logger
   protected val ws: WSClient
-  protected val schema: String
   protected val hatAddress: String
   protected val apiVersion: String
   protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
@@ -25,7 +24,7 @@ trait HatDataDebits {
     )(implicit ec: ExecutionContext): Future[DataDebit] = {
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
+      .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -57,7 +56,7 @@ trait HatDataDebits {
   def listDataDebits(access_token: String)(implicit ec: ExecutionContext): Future[Seq[DataDebit]] = {
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data-debit")
+      .url(s"$hatAddress/api/$apiVersion/data-debit")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -88,7 +87,7 @@ trait HatDataDebits {
     )(implicit ec: ExecutionContext): Future[DataDebitData] = {
 
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data-debit/$dataDebitId/values")
+      .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId/values")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
@@ -123,7 +122,7 @@ trait HatDataDebits {
       dataDebit: DataDebitSetupRequest
     )(implicit ec: ExecutionContext): Future[DataDebit] = {
     val request: WSRequest = ws
-      .url(s"$schema$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
+      .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
       .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 

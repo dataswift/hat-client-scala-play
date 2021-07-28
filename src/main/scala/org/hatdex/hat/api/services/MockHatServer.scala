@@ -132,6 +132,6 @@ object MockHatServer {
 
   def withHatClient[T](block: HatClient => T): T =
     withMockHatServerClient { client =>
-      block(new HatClient(client, "", "", "v2.6"))
+      block(new HatClient(client, "", "v2.6"))
     }
 }
