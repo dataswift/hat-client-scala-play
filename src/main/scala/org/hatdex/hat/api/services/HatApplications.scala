@@ -17,6 +17,7 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
+import java.net.URL
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatApplications {
@@ -24,7 +25,7 @@ trait HatApplications {
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
+  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import io.dataswift.models.hat.json.HatJsonFormats._
   import io.dataswift.models.hat.json.ApplicationJsonProtocol._

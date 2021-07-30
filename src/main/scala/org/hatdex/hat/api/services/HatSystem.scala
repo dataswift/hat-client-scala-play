@@ -13,13 +13,14 @@ import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.ws._
 
+import java.net.URL
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatSystem {
   protected val logger: Logger
   protected val ws: WSClient
   protected val hatAddress: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
+  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   def update(access_token: String)(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Update HAT database")
