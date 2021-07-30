@@ -9,22 +9,23 @@
 
 package org.hatdex.hat.api.services
 
-import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
-import org.hatdex.hat.api.services.Errors.{ ApiException, DuplicateDataException, UnauthorizedActionException }
+import io.dataswift.models.hat.{EndpointData, ErrorMessage}
+import org.hatdex.hat.api.services.Errors.{ApiException, DuplicateDataException, UnauthorizedActionException}
 import play.api.Logger
 import play.api.http.Status._
-import play.api.libs.json.{ JsArray, JsError, JsSuccess, Json }
+import play.api.libs.json.{JsArray, JsError, JsSuccess, Json}
 import play.api.libs.ws._
 
+import java.net.URL
 import java.util.UUID
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait HatRichData {
   protected val logger: Logger
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
+  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import io.dataswift.models.hat.json.RichDataJsonFormats._
 

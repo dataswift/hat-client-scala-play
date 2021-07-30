@@ -10,7 +10,7 @@
 package org.hatdex.hat.api.services
 
 import io.dataswift.models.hat.json.HatJsonFormats
-import io.dataswift.models.hat.{ PdaEmailVerificationRequest, User }
+import io.dataswift.models.hat.{PdaEmailVerificationRequest, User}
 import org.hatdex.hat.api.services.Errors.ApiException
 import play.api.Logger
 import play.api.http.Status._
@@ -18,15 +18,16 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws._
 
+import java.net.URL
 import java.util.UUID
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 trait HatAuthentication {
   protected val logger: Logger
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
+  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import HatJsonFormats._
   import io.dataswift.models.hat.json.ApiAuthenticationFormats._
