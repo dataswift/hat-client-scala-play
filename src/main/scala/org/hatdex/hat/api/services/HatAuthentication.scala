@@ -18,6 +18,7 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 import play.api.libs.ws._
 
+import java.net.URL
 import java.util.UUID
 import scala.concurrent.{ ExecutionContext, Future }
 

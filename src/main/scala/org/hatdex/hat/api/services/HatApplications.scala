@@ -17,6 +17,7 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
+import java.net.URL
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatApplications {

@@ -16,6 +16,7 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsArray, JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
+import java.net.URL
 import java.util.UUID
 import scala.concurrent.{ ExecutionContext, Future }
 
