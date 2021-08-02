@@ -27,5 +27,4 @@ class HatClient(
   @Inject def this(
       ws: WSClient,
       hatAddress: String) = this(ws, hatAddress, "v2.6")
-  override val host: String = if (hatAddress.isEmpty) "mock" else hatAddress
 }
