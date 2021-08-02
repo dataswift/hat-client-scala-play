@@ -17,7 +17,6 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
-import java.net.URL
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatApplications {
@@ -25,7 +24,6 @@ trait HatApplications {
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import io.dataswift.models.hat.json.HatJsonFormats._
   import io.dataswift.models.hat.json.ApplicationJsonProtocol._
@@ -35,7 +33,6 @@ trait HatApplications {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/v2/application")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -65,7 +62,6 @@ trait HatApplications {
     )(implicit ec: ExecutionContext): Future[HatService] = {
     val request: WSRequest = ws
       .url(s"$hatAddress/api/v2/application")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
@@ -91,7 +87,6 @@ trait HatApplications {
   def getAllApplications(accessToken: String)(implicit ec: ExecutionContext): Future[Seq[HatApplication]] = {
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/applications")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()
@@ -120,7 +115,6 @@ trait HatApplications {
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/setup")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     transitionApplication
@@ -132,7 +126,6 @@ trait HatApplications {
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/disable")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     transitionApplication
@@ -144,7 +137,6 @@ trait HatApplications {
     )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/access-token")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()

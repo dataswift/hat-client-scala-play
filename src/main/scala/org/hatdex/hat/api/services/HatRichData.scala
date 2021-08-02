@@ -16,7 +16,6 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsArray, JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
-import java.net.URL
 import java.util.UUID
 import scala.concurrent.{ ExecutionContext, Future }
 
@@ -25,7 +24,6 @@ trait HatRichData {
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import io.dataswift.models.hat.json.RichDataJsonFormats._
 
@@ -39,7 +37,6 @@ trait HatRichData {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters("skipErrors" -> skipErrors.toString)
 
@@ -80,7 +77,6 @@ trait HatRichData {
     )(implicit ec: ExecutionContext): Future[Seq[EndpointData]] = {
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data-batch")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(data))
@@ -131,7 +127,6 @@ trait HatRichData {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data/$namespace/$endpoint")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
       .withQueryStringParameters(queryParameter: _*)
 

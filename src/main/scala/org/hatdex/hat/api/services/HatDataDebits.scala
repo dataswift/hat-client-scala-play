@@ -7,7 +7,6 @@ import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws.{ WSClient, WSRequest, WSResponse }
 
-import java.net.URL
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatDataDebits {
@@ -15,7 +14,6 @@ trait HatDataDebits {
   protected val ws: WSClient
   protected val hatAddress: String
   protected val apiVersion: String
-  protected val host: String = if (hatAddress.isEmpty) "mock" else new URL(hatAddress).getHost
 
   import io.dataswift.models.hat.json.RichDataJsonFormats._
 
@@ -26,7 +24,6 @@ trait HatDataDebits {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -58,7 +55,6 @@ trait HatDataDebits {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data-debit")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -89,7 +85,6 @@ trait HatDataDebits {
 
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId/values")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -124,7 +119,6 @@ trait HatDataDebits {
     )(implicit ec: ExecutionContext): Future[DataDebit] = {
     val request: WSRequest = ws
       .url(s"$hatAddress/api/$apiVersion/data-debit/$dataDebitId")
-      .withVirtualHost(host)
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(dataDebit))
