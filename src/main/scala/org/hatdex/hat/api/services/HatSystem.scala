@@ -15,16 +15,20 @@ import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait HatSystem {
+trait HatSystem extends ServiceHelper {
   protected val logger: Logger
   protected val ws: WSClient
-  protected val hatAddress: String
+  protected val username: String
+  protected val serviceDomain: String
+  protected val region: String
+  protected val apiVersion: String
+  protected val serviceUrl: String
 
   def update(access_token: String)(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Update HAT database")
 
     val request: WSRequest = ws
-      .url(s"$hatAddress/system/update")
+      .url(s"$serviceUrl/system/update")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -32,8 +36,8 @@ trait HatSystem {
       response.status match {
         case OK => Future.successful(())
         case _ =>
-          logger.error(s"Updating $hatAddress failed, $response, ${response.body}")
-          Future.failed(new RuntimeException(s"Updating $hatAddress failed"))
+          logger.error(s"Updating $username failed, $response, ${response.body}")
+          Future.failed(new RuntimeException(s"Updating $username failed"))
       }
     }
   }
@@ -47,7 +51,7 @@ trait HatSystem {
     logger.debug(s"Destroying HAT Cache")
 
     val request: WSRequest = ws
-      .url(s"$hatAddress/api/v2.6/system/destroy-cache")
+      .url(s"$serviceUrl/api/v2.6/system/destroy-cache")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.delete()
@@ -55,11 +59,11 @@ trait HatSystem {
       response.status match {
         case OK => Future.successful(())
         case NOT_FOUND =>
-          logger.error(s"Destroying $hatAddress cache failed - HAT NOT FOUND, $response, ${response.body}")
-          Future.failed(new RuntimeException(s"Destroying $hatAddress cache failed - HAT NOT FOUND"))
+          logger.error(s"Destroying $username cache failed - HAT NOT FOUND, $response, ${response.body}")
+          Future.failed(new RuntimeException(s"Destroying $username cache failed - HAT NOT FOUND"))
         case _ =>
-          logger.error(s"Destroying $hatAddress cache failed, $response, ${response.body}")
-          Future.failed(new RuntimeException(s"Destroying $hatAddress cache failed"))
+          logger.error(s"Destroying $username cache failed, $response, ${response.body}")
+          Future.failed(new RuntimeException(s"Destroying $username cache failed"))
       }
     }
   }

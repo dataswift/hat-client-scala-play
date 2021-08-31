@@ -16,7 +16,9 @@ import javax.inject.Inject
 
 class HatClient(
     val ws: WSClient,
-    val hatAddress: String,
+    val serviceDomain: String,
+    val username: String,
+    val region: String,
     override val apiVersion: String)
     extends HatAuthentication
     with HatDataDebits
@@ -26,5 +28,9 @@ class HatClient(
     with Logging {
   @Inject def this(
       ws: WSClient,
-      hatAddress: String) = this(ws, hatAddress, "v2.6")
+      serviceDomain: String,
+      username: String,
+      region: String = "eu") = this(ws, serviceDomain, username, region, "v2.6")
+
+  override val serviceUrl: String = getServiceUrl(serviceDomain, region, username)
 }

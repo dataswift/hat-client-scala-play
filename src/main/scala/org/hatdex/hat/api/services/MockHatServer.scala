@@ -39,13 +39,12 @@ object MockHatServer {
     Server.withRouterFromComponents() { components =>
       import components.{ defaultActionBuilder => Action }
       {
-        case GET(p"/publickey") =>
+        case GET(p"/pds/mariostsekisred4/publickey") =>
           Action {
             Results.Ok.sendResource("hat-test-messages/testPublicKey.pem")
           }
-        case GET(p"/users/access_token") =>
+        case GET(p"/pds/mariostsekisred4/users/access_token") =>
           Action { request =>
-            //        Logger.info("Responding to access token request")
             val requestHeaders = request.headers.toSimpleMap
             val maybeUsername  = requestHeaders.get("username")
             val maybePassword  = requestHeaders.get("password")
@@ -55,9 +54,9 @@ object MockHatServer {
               case _                            => Results.Unauthorized.sendResource("hat-test-messages/authInvalid.json")
             }
           }
-        case POST(p"/api/$apiVersion/data/$namespace/$endpoint") =>
+        case POST(p"/pds/mariostsekisred4/api/$apiVersion/data/$namespace/$endpoint") =>
           Action { request =>
-            logger.info(s"POST /api/$apiVersion/data/$namespace/$endpoint")
+            logger.info(s"POST /pds/mariostsekisred4/api/$apiVersion/data/$namespace/$endpoint")
             request.body.asJson.map {
               case array: JsArray =>
                 val result =
@@ -76,9 +75,9 @@ object MockHatServer {
               )
             }
           }
-        case GET(p"/api/$apiVersion/data/$namespace/$endpoint") =>
+        case GET(p"/pds/mariostsekisred4/api/$apiVersion/data/$namespace/$endpoint") =>
           Action { request =>
-            logger.info(s"GET /api/$apiVersion/data/$namespace/$endpoint")
+            logger.info(s"GET /pds/mariostsekisred4/api/$apiVersion/data/$namespace/$endpoint")
             val maybeAccessToken = request.headers.toSimpleMap.get("X-Auth-Token")
 
             val validAccessToken = fromInputStream(
@@ -100,9 +99,9 @@ object MockHatServer {
             }
           }
 
-        case GET(p"/api/$apiVersion/data-debit/$dataDebitId/values") =>
+        case GET(p"/pds/mariostsekisred4/api/$apiVersion/data-debit/$dataDebitId/values") =>
           Action { request =>
-            logger.info(s"GET /api/$apiVersion/data-debit/$dataDebitId/values")
+            logger.info(s"GET /pds/mariostsekisred4/api/$apiVersion/data-debit/$dataDebitId/values")
             val maybeAccessToken = request.headers.toSimpleMap.get("X-Auth-Token")
 
             val validAccessToken = fromInputStream(
@@ -132,6 +131,6 @@ object MockHatServer {
 
   def withHatClient[T](block: HatClient => T): T =
     withMockHatServerClient { client =>
-      block(new HatClient(client, "", "v2.6"))
+      block(new HatClient(client, "http://vault.dataswift.net", "mariostsekisred4", "eu", "v2.6"))
     }
 }
