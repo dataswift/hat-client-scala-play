@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   private object Version {
-    val DsBackend = "2.4.1"
+    val DsBackend = "2.5.5"
   }
 
   val resolvers = Seq(
@@ -21,6 +21,8 @@ object Dependencies {
 
   object Library {
     val HatPlay = "io.dataswift" %% "hat-play" % Version.DsBackend
+    val PlayCommon = "io.dataswift" %% "play-common" % Version.DsBackend
+    val Logs = "org.slf4j" % "slf4j-simple" % "1.7.12"
 
     object Specs2 {
       private val version = "4.10.3"

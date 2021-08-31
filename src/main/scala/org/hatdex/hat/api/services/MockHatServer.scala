@@ -39,7 +39,7 @@ object MockHatServer {
     Server.withRouterFromComponents() { components =>
       import components.{ defaultActionBuilder => Action }
       {
-        case GET(p"/pds/mariostsekisred4/publickey") =>
+        case GET(p"*") =>
           Action {
             Results.Ok.sendResource("hat-test-messages/testPublicKey.pem")
           }
@@ -131,6 +131,6 @@ object MockHatServer {
 
   def withHatClient[T](block: HatClient => T): T =
     withMockHatServerClient { client =>
-      block(new HatClient(client, "http://vault.dataswift.net", "mariostsekisred4", "eu", "v2.6"))
+      block(new HatClient(client, "http://vault.dataswift.net", "test", "eu", "v2.6"))
     }
 }

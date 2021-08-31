@@ -7,6 +7,8 @@ libraryDependencies ++= Seq(
   Lib.PlayJson,
   Lib.PlayJsonJoda,
   Library.HatPlay,
+  Library.PlayCommon,
+  Library.Logs,
   Library.Specs2.matcherExtra % Test,
   Library.Specs2.mock         % Test,
   Library.Specs2.core         % Test
