@@ -35,7 +35,7 @@ class HatAuthenticationSpec(implicit ee: ExecutionEnv) extends Specification {
       }
     }
 
-    "return access token on sucessful login" in {
+    "return access token on successful login" in {
       withHatClient { client =>
         val eventuallyResult = client.authenticateForToken("user", "pa55")
         val validAccessToken = fromInputStream(
