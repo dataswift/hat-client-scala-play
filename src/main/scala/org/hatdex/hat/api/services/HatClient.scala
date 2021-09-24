@@ -14,17 +14,27 @@ import play.api.libs.ws.WSClient
 
 import javax.inject.Inject
 
+trait HatWsClient extends Logging {
+  protected val ws: WSClient
+  protected val baseUrl: String
+  protected val baseUrlWithPath: String
+}
+
+//@deprecated("HAT deployments migrated to a new domain structure", since = "2.5")
 class HatClient(
     val ws: WSClient,
     val hatAddress: String,
-    override val apiVersion: String)
-    extends HatAuthentication
+    val apiVersion: String)
+    extends HatWsClient
+    with HatAuthentication
     with HatDataDebits
     with HatApplications
     with HatRichData
-    with HatSystem
-    with Logging {
+    with HatSystem {
   @Inject def this(
       ws: WSClient,
       hatAddress: String) = this(ws, hatAddress, "v2.6")
+
+  override val baseUrl = if (hatAddress.startsWith("http")) hatAddress else s"https://$hatAddress"
+  override val baseUrlWithPath = s"$baseUrl/api/$apiVersion"
 }

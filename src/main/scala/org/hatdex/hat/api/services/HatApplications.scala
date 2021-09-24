@@ -12,19 +12,13 @@ package org.hatdex.hat.api.services
 import io.dataswift.models.hat.HatService
 import io.dataswift.models.hat.applications.HatApplication
 import org.hatdex.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
-import play.api.Logger
 import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws._
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-trait HatApplications {
-  protected val logger: Logger
-  protected val ws: WSClient
-  protected val hatAddress: String
-  protected val apiVersion: String
-
+trait HatApplications extends HatWsClient {
   import io.dataswift.models.hat.json.HatJsonFormats._
   import io.dataswift.models.hat.json.ApplicationJsonProtocol._
 
@@ -32,7 +26,7 @@ trait HatApplications {
   def getApplications(access_token: String)(implicit ec: ExecutionContext): Future[Seq[HatService]] = {
 
     val request: WSRequest = ws
-      .url(s"$hatAddress/api/v2/application")
+      .url(s"$baseUrl/api/v2/application")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.get()
@@ -47,10 +41,10 @@ trait HatApplications {
               Future.failed(new ApiException(s"Error parsing Application listing response: $e"))
           }
         case FORBIDDEN =>
-          Future.failed(UnauthorizedActionException(s"Getting applications for hat $hatAddress forbidden"))
+          Future.failed(UnauthorizedActionException(s"Getting applications for hat $baseUrl forbidden"))
         case _ =>
-          logger.error(s"Listing applications for $hatAddress failed, $response, ${response.body}")
-          Future.failed(new ApiException(s"Listing applications for $hatAddress failed unexpectedly"))
+          logger.error(s"Listing applications for $baseUrl failed, $response, ${response.body}")
+          Future.failed(new ApiException(s"Listing applications for $baseUrl failed unexpectedly"))
       }
     }
   }
@@ -61,7 +55,7 @@ trait HatApplications {
       application: HatService
     )(implicit ec: ExecutionContext): Future[HatService] = {
     val request: WSRequest = ws
-      .url(s"$hatAddress/api/v2/application")
+      .url(s"$baseUrl/api/v2/application")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
@@ -76,17 +70,17 @@ trait HatApplications {
               Future.failed(new ApiException(s"Error parsing response from a successful application update: $e"))
           }
         case FORBIDDEN =>
-          Future.failed(UnauthorizedActionException(s"Saving application for hat $hatAddress forbidden"))
+          Future.failed(UnauthorizedActionException(s"Saving application for hat $baseUrl forbidden"))
         case _ =>
-          logger.error(s"Saving application for $hatAddress failed, $response, ${response.body}")
-          Future.failed(new ApiException(s"Saving application for $hatAddress failed unexpectedly"))
+          logger.error(s"Saving application for $baseUrl failed, $response, ${response.body}")
+          Future.failed(new ApiException(s"Saving application for $baseUrl failed unexpectedly"))
       }
     }
   }
 
   def getAllApplications(accessToken: String)(implicit ec: ExecutionContext): Future[Seq[HatApplication]] = {
     val request: WSRequest = ws
-      .url(s"$hatAddress/api/$apiVersion/applications")
+      .url(s"$baseUrlWithPath/applications")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()
@@ -101,10 +95,10 @@ trait HatApplications {
               Future.failed(new ApiException(s"Error parsing Application listing response: $e"))
           }
         case FORBIDDEN =>
-          Future.failed(UnauthorizedActionException(s"Getting applications for hat $hatAddress forbidden"))
+          Future.failed(UnauthorizedActionException(s"Getting applications for hat $baseUrl forbidden"))
         case _ =>
-          logger.error(s"Listing applications for $hatAddress failed, $response, ${response.body}")
-          Future.failed(new ApiException(s"Listing applications for $hatAddress failed unexpectedly"))
+          logger.error(s"Listing applications for $baseUrl failed, $response, ${response.body}")
+          Future.failed(new ApiException(s"Listing applications for $baseUrl failed unexpectedly"))
       }
     }
   }
@@ -114,7 +108,7 @@ trait HatApplications {
       applicationId: String
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
-      .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/setup")
+      .url(s"$baseUrlWithPath/applications/$applicationId/setup")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     transitionApplication
@@ -125,7 +119,7 @@ trait HatApplications {
       applicationId: String
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
-      .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/disable")
+      .url(s"$baseUrlWithPath/applications/$applicationId/disable")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     transitionApplication
@@ -136,7 +130,7 @@ trait HatApplications {
       applicationId: String
     )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws
-      .url(s"$hatAddress/api/$apiVersion/applications/$applicationId/access-token")
+      .url(s"$baseUrlWithPath/applications/$applicationId/access-token")
       .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()
@@ -150,10 +144,10 @@ trait HatApplications {
               Future.failed(new ApiException("Unable to parse application token"))
           }
         case FORBIDDEN =>
-          Future.failed(UnauthorizedActionException(s"Getting applications for hat $hatAddress forbidden"))
+          Future.failed(UnauthorizedActionException(s"Getting applications for hat $baseUrl forbidden"))
         case _ =>
-          logger.error(s"Listing applications for $hatAddress failed, $response, ${response.body}")
-          Future.failed(new ApiException(s"Listing applications for $hatAddress failed unexpectedly"))
+          logger.error(s"Listing applications for $baseUrl failed, $response, ${response.body}")
+          Future.failed(new ApiException(s"Listing applications for $baseUrl failed unexpectedly"))
       }
     }
   }
@@ -179,10 +173,10 @@ trait HatApplications {
         case UNAUTHORIZED =>
           Future.failed(new ApiException(s"Invalid authentication token"))
         case FORBIDDEN =>
-          Future.failed(UnauthorizedActionException(s"Getting applications for hat $hatAddress forbidden"))
+          Future.failed(UnauthorizedActionException(s"Getting applications for hat $baseUrl forbidden"))
         case _ =>
-          logger.error(s"Listing applications for $hatAddress failed, $response, ${response.body}")
-          Future.failed(new ApiException(s"Listing applications for $hatAddress failed unexpectedly"))
+          logger.error(s"Listing applications for $baseUrl failed, $response, ${response.body}")
+          Future.failed(new ApiException(s"Listing applications for $baseUrl failed unexpectedly"))
       }
     }
   }
