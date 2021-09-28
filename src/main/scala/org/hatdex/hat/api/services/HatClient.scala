@@ -20,10 +20,10 @@ trait HatWsClient extends Logging {
   protected val baseUrlWithPath: String
 }
 
-//@deprecated("HAT deployments migrated to a new domain structure", since = "2.5")
 class HatClient(
     val ws: WSClient,
     val hatAddress: String,
+    val schema: String,
     val apiVersion: String)
     extends HatWsClient
     with HatAuthentication
@@ -31,10 +31,17 @@ class HatClient(
     with HatApplications
     with HatRichData
     with HatSystem {
+
   @Inject def this(
       ws: WSClient,
-      hatAddress: String) = this(ws, hatAddress, "v2.6")
+      hatAddress: String) = this(ws, hatAddress, "https://", "v2.6")
 
-  override val baseUrl = if (hatAddress.startsWith("http")) hatAddress else s"https://$hatAddress"
+  @Inject def this(
+      ws: WSClient,
+      hatAddress: String,
+      schema: String) = this(ws, hatAddress, schema, "v2.6")
+
+  // In case http schema is already specified in the `hatAddress`, `schema` parameter value is ignored
+  override val baseUrl: String = if (hatAddress.startsWith("http")) hatAddress else s"$schema$hatAddress"
   override val baseUrlWithPath = s"$baseUrl/api/$apiVersion"
 }
