@@ -1,4 +1,4 @@
-package org.hatdex.hat.api.utils
+package io.dataswift.hat.api.utils
 
 import io.dataswift.models.hat.applications.ApplicationKind
 import play.api.mvc.QueryStringBindable

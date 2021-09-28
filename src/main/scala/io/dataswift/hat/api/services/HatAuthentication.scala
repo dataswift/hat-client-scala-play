@@ -7,11 +7,12 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
+import io.dataswift.hat.api.HatWsClient
 import io.dataswift.models.hat.json.HatJsonFormats
 import io.dataswift.models.hat.{ PdaEmailVerificationRequest, User }
-import org.hatdex.hat.api.services.Errors.ApiException
+import io.dataswift.hat.api.services.Errors.ApiException
 import play.api.http.Status._
 import play.api.i18n.Lang
 import play.api.libs.json._
