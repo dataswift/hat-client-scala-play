@@ -7,10 +7,11 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
+import io.dataswift.hat.api.HatWsClient
 import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
-import org.hatdex.hat.api.services.Errors.{ ApiException, DuplicateDataException, UnauthorizedActionException }
+import io.dataswift.hat.api.services.Errors.{ ApiException, DuplicateDataException, UnauthorizedActionException }
 import play.api.http.Status._
 import play.api.libs.json.{ JsArray, JsError, JsSuccess, Json }
 import play.api.libs.ws._

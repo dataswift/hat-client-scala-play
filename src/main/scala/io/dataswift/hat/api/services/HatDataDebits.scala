@@ -1,7 +1,8 @@
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
+import io.dataswift.hat.api.HatWsClient
 import io.dataswift.models.hat._
-import org.hatdex.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
+import io.dataswift.hat.api.services.Errors.{ ApiException, UnauthorizedActionException }
 import play.api.http.Status._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 import play.api.libs.ws.{ WSRequest, WSResponse }

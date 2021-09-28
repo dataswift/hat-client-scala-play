@@ -7,12 +7,13 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
 import akka.util.ByteString
-import io.dataswift.models.hat.{EndpointData, ErrorMessage}
+import io.dataswift.hat.api.HatClient
+import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
 import play.api.Logger
-import play.api.http.{DefaultFileMimeTypes, DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity}
+import play.api.http.{ DefaultFileMimeTypes, DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity }
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import play.api.mvc._

@@ -7,8 +7,9 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api
 
+import io.dataswift.hat.api.services._
 import play.api.Logging
 import play.api.libs.ws.WSClient
 

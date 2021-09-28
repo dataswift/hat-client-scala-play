@@ -1,4 +1,4 @@
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
 object Errors {
   class ApiException(

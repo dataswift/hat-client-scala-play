@@ -7,9 +7,9 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
-import org.hatdex.hat.api.services.MockHatServer.withHatClient
+import io.dataswift.hat.api.services.MockHatServer.withHatClient
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.execute.Result
 import org.specs2.matcher.MatchResult

@@ -7,7 +7,7 @@
  *
  */
 
-package org.hatdex.hat.api.utils
+package io.dataswift.hat.api.utils
 
 import io.dataswift.models.hat.{ ApiDataRecord, ApiDataTable }
 import org.joda.time.LocalDateTime

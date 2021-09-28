@@ -7,11 +7,11 @@
  *
  */
 
-package org.hatdex.hat.api.services
+package io.dataswift.hat.api.services
 
 import io.dataswift.models.hat.EndpointData
-import org.hatdex.hat.api.services.Errors.UnauthorizedActionException
-import org.hatdex.hat.api.services.MockHatServer.withHatClient
+import io.dataswift.hat.api.services.Errors.UnauthorizedActionException
+import io.dataswift.hat.api.services.MockHatServer.withHatClient
 import org.specs2.concurrent.ExecutionEnv
 import org.specs2.mutable.Specification
 import org.specs2.specification.Scope
