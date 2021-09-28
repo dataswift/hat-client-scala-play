@@ -12,7 +12,7 @@ import sbt._
 object Dependencies {
 
   private object Version {
-    val DsBackend = "2.4.1"
+    val DsBackend = "2.5.5"
   }
 
   val resolvers = Seq(

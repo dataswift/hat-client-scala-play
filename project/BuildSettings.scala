@@ -42,7 +42,7 @@ object BuildSettings extends AutoPlugin {
 
   override def projectSettings: Seq[Def.Setting[_]] =
     Seq(
-      organization := "org.hatdex",
+      organization := "io.dataswift",
       resolvers ++= Dependencies.resolvers,
       name := "HAT Client Scala Play",
       semanticdbEnabled := true,
@@ -52,11 +52,11 @@ object BuildSettings extends AutoPlugin {
           )),
       scmInfo := Some(
             ScmInfo(
-              url("https://github.com/Hub-of-all-Things/hat-client-scala-play"),
-              "scm:git@github.com:Hub-of-all-Things/hat-client-scala-play.git"
+              url("https://github.com/dataswift/hat-client-scala-play"),
+              "scm:git@github.com:dataswift/hat-client-scala-play.git"
             )
           ),
-      homepage := Some(url("https://hubofallthings.com")),
+      homepage := Some(url("https://dataswift.io")),
       developers := List(
             Developer(
               id = "augustinas",

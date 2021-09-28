@@ -44,14 +44,13 @@ class HatClient(
 
   @Inject def this(
       ws: WSClient,
+      region: String,
+      serviceDomain: String,
       username: String,
-      region: String = "eu",
-      serviceDomain: String = "vault.dataswift.io",
       scheme: String = "https://") = this(ws, s"$region.$serviceDomain/pds/$username", scheme, "v2.6")
 
   // In case http schema is already specified in the `hatAddress`, `schema` parameter value is ignored
   // 2021-09-28 The check is needed for backward compatibility with different consumers of the library
   override val baseUrl: String = if (hatAddress.startsWith("http")) hatAddress else s"$scheme$hatAddress"
   override val baseUrlWithPath = s"$baseUrl/api/$apiVersion"
-
 }
