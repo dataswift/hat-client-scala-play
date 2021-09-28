@@ -10,9 +10,9 @@
 package org.hatdex.hat.api.services
 
 import akka.util.ByteString
-import io.dataswift.models.hat.{ EndpointData, ErrorMessage }
+import io.dataswift.models.hat.{EndpointData, ErrorMessage}
 import play.api.Logger
-import play.api.http.{ DefaultFileMimeTypes, DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity }
+import play.api.http.{DefaultFileMimeTypes, DefaultFileMimeTypesProvider, FileMimeTypesConfiguration, HttpEntity}
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import play.api.mvc._
@@ -132,6 +132,6 @@ object MockHatServer {
 
   def withHatClient[T](block: HatClient => T): T =
     withMockHatServerClient { client =>
-      block(new HatClient(client, "", "v2.6"))
+      block(new HatClient(client, "", "", "v2.6"))
     }
 }
