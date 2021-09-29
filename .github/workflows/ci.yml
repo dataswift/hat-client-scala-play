@@ -5,7 +5,7 @@ on:
   push:
     branches-ignore:
       - main
-    
+
 jobs:
   build:
     name: Build
@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Cache - GHA
         uses: actions/cache@v2.1.6
         with:
@@ -36,6 +37,14 @@ jobs:
       - name: Clean and test
         run: sbt clean test
 
-      - name: Cache - Upload
-        if: github.actor != 'dependabot[bot]'
-        run: aws s3 sync ~/.cache/coursier/v1/https/ s3://${{ secrets.ARTIFACTS_CACHE_BUCKET }} --sse AES256 --follow-symlinks --no-progress
+      # - name: AWS - Configure
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   if: github.actor != 'dependabot[bot]'
+      #   with:
+      #     aws-access-key-id: ${{ secrets.ARTIFACTS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.ARTIFACTS_SECRET_ACCESS_KEY }}
+      #     aws-region: eu-west-1        
+
+      # - name: Cache - Upload
+      #   if: github.actor != 'dependabot[bot]'
+      #   run: aws s3 sync ~/.cache/coursier/v1/https/ s3://${{ secrets.ARTIFACTS_CACHE_BUCKET }} --sse AES256 --follow-symlinks --no-progress
