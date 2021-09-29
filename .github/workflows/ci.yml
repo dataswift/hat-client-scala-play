@@ -5,7 +5,7 @@ on:
   push:
     branches-ignore:
       - main
-    
+
 jobs:
   build:
     name: Build
@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Cache - GHA
         uses: actions/cache@v2.1.6
         with:
