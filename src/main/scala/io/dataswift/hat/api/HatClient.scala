@@ -19,6 +19,9 @@ trait HatWsClient extends Logging {
   protected val ws: WSClient
   protected val baseUrl: String
   protected val baseUrlWithPath: String
+
+  protected val customAuthHeader: String     = "X-Auth-Token"
+  protected val jsonHeader: (String, String) = "Accept" -> "application/json"
 }
 
 class HatClient(

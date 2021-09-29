@@ -44,8 +44,8 @@ trait HatAuthentication extends HatWsClient {
       password: String
     )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws
-      .url(s"$baseUrl/users/access_token")
-      .withHttpHeaders("Accept" -> "application/json", "username" -> username, "password" -> password)
+      .url(s"$baseUrl/users/accessToken")
+      .withHttpHeaders(jsonHeader, "username" -> username, "password" -> password)
 
     logger.debug(s"Authenticate for token with HAT at ${request.method} ${request.url} (headers: ${request.headers})")
 
@@ -72,12 +72,12 @@ trait HatAuthentication extends HatWsClient {
   }
 
   def createAccount(
-      access_token: String,
+      accessToken: String,
       hatUser: User
     )(implicit ec: ExecutionContext): Future[UUID] = {
     val request: WSRequest = ws
       .url(s"$baseUrl/users/user")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     logger.debug(s"Create account request ${request.uri}")
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(hatUser))
@@ -94,12 +94,12 @@ trait HatAuthentication extends HatWsClient {
   }
 
   def updateAccount(
-      access_token: String,
+      accessToken: String,
       hatUser: User
     )(implicit ec: ExecutionContext): Future[UUID] = {
     val request: WSRequest = ws
       .url(s"$baseUrl/users/user/${hatUser.userId}/update")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     logger.debug(s"Update account request ${request.uri}")
     val futureResponse: Future[WSResponse] = request.put(Json.toJson(hatUser))
@@ -116,12 +116,12 @@ trait HatAuthentication extends HatWsClient {
   }
 
   def enableAccount(
-      access_token: String,
+      accessToken: String,
       userId: UUID
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     val request: WSRequest = ws
       .url(s"$baseUrl/users/user/$userId/enable")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     logger.debug(s"Enable account $userId on $baseUrl")
     val futureResponse: Future[WSResponse] = request.put("")
@@ -146,7 +146,7 @@ trait HatAuthentication extends HatWsClient {
     val request: WSRequest = ws
       .url(s"$baseUrl/control/v2/auth/request-verification")
       .withQueryStringParameters("lang" -> lang.language)
-      .withHttpHeaders("Accept" -> "application/json")
+      .withHttpHeaders(jsonHeader)
 
     logger.debug(s"Trigger HAT claim process on $baseUrl")
     val eventualResponse = request.post(Json.toJson(PdaEmailVerificationRequest(email, applicationId, redirectUri)))
@@ -176,7 +176,7 @@ trait HatAuthentication extends HatWsClient {
     val request: WSRequest = ws
       .url(s"$baseUrl/control/v2/auth/claim")
       .withQueryStringParameters("lang" -> lang)
-      .withHttpHeaders("Accept" -> "application/json")
+      .withHttpHeaders(jsonHeader)
 
     logger.debug(s"Trigger HAT claim process on $baseUrl")
     val eventualResponse =

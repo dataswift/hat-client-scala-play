@@ -44,7 +44,7 @@ object MockHatServer {
           Action {
             Results.Ok.sendResource("hat-test-messages/testPublicKey.pem")
           }
-        case GET(p"/users/access_token") =>
+        case GET(p"/users/accessToken") =>
           Action { request =>
             //        Logger.info("Responding to access token request")
             val requestHeaders = request.headers.toSimpleMap
