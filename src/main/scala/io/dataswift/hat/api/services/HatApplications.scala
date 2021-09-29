@@ -24,11 +24,11 @@ trait HatApplications extends HatWsClient {
   import io.dataswift.models.hat.json.ApplicationJsonProtocol._
 
   @Deprecated
-  def getApplications(access_token: String)(implicit ec: ExecutionContext): Future[Seq[HatService]] = {
+  def getApplications(accessToken: String)(implicit ec: ExecutionContext): Future[Seq[HatService]] = {
 
     val request: WSRequest = ws
       .url(s"$baseUrl/api/v2/application")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.get()
 
@@ -52,12 +52,12 @@ trait HatApplications extends HatWsClient {
 
   @Deprecated
   def saveApplication(
-      access_token: String,
+      accessToken: String,
       application: HatService
     )(implicit ec: ExecutionContext): Future[HatService] = {
     val request: WSRequest = ws
       .url(s"$baseUrl/api/v2/application")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(application))
 
@@ -82,7 +82,7 @@ trait HatApplications extends HatWsClient {
   def getAllApplications(accessToken: String)(implicit ec: ExecutionContext): Future[Seq[HatApplication]] = {
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/applications")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()
 
@@ -110,7 +110,7 @@ trait HatApplications extends HatWsClient {
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
       .url(s"$baseUrlWithPath/applications/$applicationId/setup")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     transitionApplication
   }
@@ -121,7 +121,7 @@ trait HatApplications extends HatWsClient {
     )(implicit ec: ExecutionContext): Future[Boolean] = {
     implicit val request: WSRequest = ws
       .url(s"$baseUrlWithPath/applications/$applicationId/disable")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     transitionApplication
   }
@@ -132,7 +132,7 @@ trait HatApplications extends HatWsClient {
     )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/applications/$applicationId/access-token")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> accessToken)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val eventualResponse: Future[WSResponse] = request.get()
 

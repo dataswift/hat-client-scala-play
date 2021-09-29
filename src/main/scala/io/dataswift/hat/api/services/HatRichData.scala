@@ -23,7 +23,7 @@ trait HatRichData extends HatWsClient {
   import io.dataswift.models.hat.json.RichDataJsonFormats._
 
   def saveData(
-      access_token: String,
+      accessToken: String,
       namespace: String,
       endpoint: String,
       data: JsArray,
@@ -32,7 +32,7 @@ trait HatRichData extends HatWsClient {
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data/$namespace/$endpoint")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
       .withQueryStringParameters("skipErrors" -> skipErrors.toString)
 
     val futureResponse: Future[WSResponse] = request.post(data)
@@ -67,12 +67,12 @@ trait HatRichData extends HatWsClient {
   }
 
   def saveData(
-      access_token: String,
+      accessToken: String,
       data: Seq[EndpointData]
     )(implicit ec: ExecutionContext): Future[Seq[EndpointData]] = {
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data-batch")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(data))
 
@@ -102,7 +102,7 @@ trait HatRichData extends HatWsClient {
   }
 
   def getData(
-      access_token: String,
+      accessToken: String,
       namespace: String,
       endpoint: String,
       recordId: Option[UUID] = None,
@@ -122,7 +122,7 @@ trait HatRichData extends HatWsClient {
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data/$namespace/$endpoint")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
       .withQueryStringParameters(queryParameter: _*)
 
     val futureResponse: Future[WSResponse] = request.get()

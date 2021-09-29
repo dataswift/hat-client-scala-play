@@ -16,12 +16,12 @@ import play.api.libs.ws._
 import scala.concurrent.{ ExecutionContext, Future }
 
 trait HatSystem extends HatWsClient {
-  def update(access_token: String)(implicit ec: ExecutionContext): Future[Unit] = {
+  def update(accessToken: String)(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Update HAT database")
 
     val request: WSRequest = ws
       .url(s"$baseUrl/system/update")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.get()
     futureResponse.flatMap { response =>
@@ -35,16 +35,16 @@ trait HatSystem extends HatWsClient {
   }
 
   /**
-    * @param access_token - Expect Milliner Shared Secret
+    * @param accessToken - Expect Milliner Shared Secret
     * @param ec
     * @return
     */
-  def destroyCache(access_token: String)(implicit ec: ExecutionContext): Future[Unit] = {
+  def destroyCache(accessToken: String)(implicit ec: ExecutionContext): Future[Unit] = {
     logger.debug(s"Destroying HAT Cache")
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/system/destroy-cache")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.delete()
     futureResponse.flatMap { response =>

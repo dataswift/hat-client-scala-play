@@ -13,13 +13,13 @@ trait HatDataDebits extends HatWsClient {
   import io.dataswift.models.hat.json.RichDataJsonFormats._
 
   def getDataDebit(
-      access_token: String,
+      accessToken: String,
       dataDebitId: String
     )(implicit ec: ExecutionContext): Future[DataDebit] = {
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data-debit/$dataDebitId")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.get()
 
@@ -46,11 +46,11 @@ trait HatDataDebits extends HatWsClient {
     }
   }
 
-  def listDataDebits(access_token: String)(implicit ec: ExecutionContext): Future[Seq[DataDebit]] = {
+  def listDataDebits(accessToken: String)(implicit ec: ExecutionContext): Future[Seq[DataDebit]] = {
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data-debit")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.get()
 
@@ -74,13 +74,13 @@ trait HatDataDebits extends HatWsClient {
   }
 
   def getDataDebitValues(
-      access_token: String,
+      accessToken: String,
       dataDebitId: String
     )(implicit ec: ExecutionContext): Future[DataDebitData] = {
 
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data-debit/$dataDebitId/values")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.get()
 
@@ -108,13 +108,13 @@ trait HatDataDebits extends HatWsClient {
   }
 
   def registerDataDebit(
-      access_token: String,
+      accessToken: String,
       dataDebitId: String,
       dataDebit: DataDebitSetupRequest
     )(implicit ec: ExecutionContext): Future[DataDebit] = {
     val request: WSRequest = ws
       .url(s"$baseUrlWithPath/data-debit/$dataDebitId")
-      .withHttpHeaders("Accept" -> "application/json", "X-Auth-Token" -> access_token)
+      .withHttpHeaders(jsonHeader, customAuthHeader -> accessToken)
 
     val futureResponse: Future[WSResponse] = request.post(Json.toJson(dataDebit))
 
