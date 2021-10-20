@@ -44,7 +44,7 @@ trait HatAuthentication extends HatWsClient {
       password: String
     )(implicit ec: ExecutionContext): Future[String] = {
     val request: WSRequest = ws
-      .url(s"$baseUrl/users/accessToken")
+      .url(s"$baseUrl/users/access_token")
       .withHttpHeaders(jsonHeader, "username" -> username, "password" -> password)
 
     logger.debug(s"Authenticate for token with HAT at ${request.method} ${request.url} (headers: ${request.headers})")
